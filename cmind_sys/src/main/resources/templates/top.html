@@ -29,7 +29,8 @@
                 <td th:text="*{emp.empId}"></td>
                 <td th:text="*{emp.empName}"></td>
                 <td th:text="*{emp.birthday}"></td>
-                <td th:text="*{emp.gender}"></td>
+                <td th:if="${emp.gender == 1}"    th:text="男"></td>
+                <td th:if="${emp.gender == 2}"    th:text="女"></td>
             </tr>
         </tbody>
    	 </table>

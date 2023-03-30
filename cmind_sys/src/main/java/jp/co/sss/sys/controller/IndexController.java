@@ -210,6 +210,7 @@ public class IndexController {
 
 		//入力された条件（社員番号）と一致するデータをDBから再取得する。
 		Employee up_emp = empRepository.findByempId(this.empId);
+		Logger.log(new Throwable(), "up_emp.getGender() = " + up_emp.getGender());
 		request.setAttribute("up_emp", up_emp);
 
 		Logger.logEnd(new Throwable());
