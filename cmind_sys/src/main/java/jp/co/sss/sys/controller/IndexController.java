@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -138,8 +139,13 @@ public class IndexController {
 			//ログイン成功後、LoginFormに名前をセットする。
 			loginForm.setEmpName(emp.getEmpName());
 
+
 			//社員一覧を取得する。
 			List<Employee> emplist = empRepository.findAll();
+
+			if (CollectionUtils.isEmpty(emplist)) {
+				  return "error";
+				}
 
 			// ①初めてセッションを作成するユーザーからのアクセスの場合、
 			// 　内部的にセッションが新たに作成され、ユーザーを識別するセッションIDも、この時に発番されます。
@@ -183,6 +189,11 @@ public class IndexController {
 		try {
 		//社員一覧ボタンが押下した場合、DBから社員情報のデータを再取得する。
 		List<Employee> emplist = empRepository.findAll();
+
+		if (CollectionUtils.isEmpty(emplist)) {
+			  return "error";
+			}
+
 		request.setAttribute("emplist", emplist);
 		Logger.logEnd(new Throwable());
 		return "top";
